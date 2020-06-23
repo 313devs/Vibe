@@ -10,6 +10,9 @@ import React, { Component } from 'react'
 import { StyleSheet, View, Dimensions,Text,Image,StatusBar,TouchableOpacity} from 'react-native'
 import {NavigationContainer} from "@react-navigation/native"
 import {createStackNavigator} from "@react-navigation/stack"
+import Icon from 'react-native-vector-icons/FontAwesome'
+
+Icon.loadFont();
 
 import Welcome from "./Pages/Welcome"
 import Create from "./Pages/Create"
