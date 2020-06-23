@@ -7,7 +7,7 @@
  */
 
 import React, { Component } from 'react'
-import { StyleSheet, View, Dimensions,Text,Image,StatusBar,TouchableOpacity,TextInput,KeyboardAvoidingView,Platform,TouchableWithoutFeedback,Keyboard,Button} from 'react-native'
+import { StyleSheet, View, Dimensions,Text,Image,StatusBar,TouchableOpacity,TextInput,KeyboardAvoidingView,Platform,TouchableWithoutFeedback,Keyboard,Alert} from 'react-native'
 
 import Checkbox from 'react-native-custom-checkbox'
 import IonIcon from 'react-native-vector-icons/FontAwesome'
@@ -26,26 +26,32 @@ class Create extends React.Component {
       Email:"",
       Password:"",
       Confirm:"",
-      canSign:false
-    }
-    checkRegister(){
-      console.log(this.state.canSign)
-      if((this.state.Name).length>0){
-        ()=>this.setState({canSign:true})
-      }
     }
     /*componentDidUpdate(nextProps) {
         this.props = nextProps;
         ()=>{this.setState({ checked: nextProps.checked})};
     }*/
     //comment top part in the node modules code because it depracated
+    validate = (text) => {
+      console.log(text);
+      let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      if (reg.test(text) === false) {
+        console.log("Email is Not Correct");
+        this.setState({ Email: text })
+        return false
+      }
+      else {
+        this.setState({ Email: text })
+        return true
+      }
+    }
     render() {
         return (
           <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : null} style={{ flex: 1}}>
               <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                   <View style={styles.inner}>
                     <Image style={{width:"100%",height:"100%",position:"absolute"}} source={require("../assets/landing.png")} />
-                    <StatusBar barStyle="light-content"/>
+                    <StatusBar barStyle="light-content" hidden={true}/>
                     <Image style={{width:"100%",height:"100%",position:"absolute"}} source={require("../assets/landing.png")} />
                     <Image style={{width:_height*0.11083744,height: _height * 0.18472906 , marginBottom:_height*0.0292610837}} source={require("../assets/vineAsset.png")} />
                     <View style={styles.infoBit}>
@@ -80,6 +86,7 @@ class Create extends React.Component {
                             ref={(input) => { this.thirdTextInput = input; }}
                             placeholder="Password"
                             returnKeyType="next"
+                            secureTextEntry={true}
                             onSubmitEditing={() => { this.fourthTextInput.focus();  }}
                             onChangeText={(name)=>{this.setState({Password:name})}}
                             blurOnSubmit={false}
@@ -89,6 +96,7 @@ class Create extends React.Component {
                             <TextInput style={{width:"100%",height:"100%",fontFamily:"poppins-regular"}} 
                             ref={(input) => { this.fourthTextInput = input; }}
                             placeholder="Confrim Password"
+                            secureTextEntry={true}
                             onChangeText={(name)=>{this.setState({Confirm:name})}}
                             />
                           </View>
@@ -97,17 +105,17 @@ class Create extends React.Component {
                             checked={false} 
                             size={20} 
                             style={{backgroundColor: '#fffff', color:"#0052A3", borderRadius: 5,borderColor:"#0052A3"}} 
-                            onChange={()=>{if(this.state.checked === true){this.setState({checked:false})}else{this.setState({checked:true})} this.checkRegister()}}
+                            onChange={()=>{if(this.state.checked === true){this.setState({checked:false})}else{this.setState({checked:true})}}}
                             />
                             <Text style={styles.Checkbox}>I confirm that my age is 18+ and I agree to the terms and conditions</Text>
                           </View>
                           <TouchableOpacity style={[styles.signUpBtn,{backgroundColor:this.state.Name.length>0 && 
-                          this.state.Email.length>0 && 
+                          this.state.Email.length>0&& 
                           this.state.Password.length>0 &&
                           this.state.Confirm.length>0&&
                           this.state.Password === this.state.Confirm &&
                           this.state.checked?"#0052A3":"gray"}]} 
-                            onPress={()=>console.log(this.state.checked)}>
+                            onPress={()=>{if(!this.validate(this.state.Email)){Alert.alert("invalid!","please enter a valid email")}}}>
                             <Text style={styles.signUp}>Sign Up</Text>
                           </TouchableOpacity>
                       </View>

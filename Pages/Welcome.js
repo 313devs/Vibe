@@ -23,7 +23,7 @@ class Welcome extends React.Component {
               <TouchableOpacity style={styles.signUpBtn} onPress={() => this.props.navigation.navigate("Create")}>
                 <Text style={styles.signUp}>Sign Up</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.signInBtn}>
+              <TouchableOpacity style={styles.signInBtn} onPress={() => this.props.navigation.navigate("Login")}>
                 <Text style={styles.signIn}>Sign In</Text>
               </TouchableOpacity>
             </View>        
