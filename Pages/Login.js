@@ -9,7 +9,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Dimensions,Text,Image,StatusBar,TouchableOpacity,TextInput,KeyboardAvoidingView,Platform,TouchableWithoutFeedback,Keyboard,Button} from 'react-native'
 
-import Checkbox from 'react-native-custom-checkbox'
 import IonIcon from 'react-native-vector-icons/FontAwesome'
 
 let _height = Dimensions.get('window').height

@@ -17,6 +17,7 @@ Icon.loadFont();
 import Welcome from "./Pages/Welcome"
 import Create from "./Pages/Create"
 import Login from "./Pages/Login"
+import Ref from "./Pages/Refer"
 
 const Stack = createStackNavigator()
 
@@ -32,6 +33,7 @@ class App extends React.Component {
         return (
           <NavigationContainer>
             <Stack.Navigator screenOptions={{headerShown: false}}>
+              <Stack.Screen name="Ref" component={Ref}/>
               <Stack.Screen name="welcome" component={Welcome}/>
               <Stack.Screen name="Create" component={Create}/>
               <Stack.Screen name="Login" component={Login}/>
